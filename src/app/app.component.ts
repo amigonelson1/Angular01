@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  cities= ['Madrid', 'Paris', 'Lima']
+  name!: string;
   title = 'reto01';
 }

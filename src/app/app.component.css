@@ -1,0 +1,15 @@
+.selected {
+    background-color: rgb(180, 214, 157);
+    color: gray;
+    padding:10px;
+}
+
+.unSelected{
+    background-color: rgba(63, 247, 27, 0.616);
+    color: rgb(12, 221, 236);
+    padding:10px;
+}
+
+.blue {
+    color: blue;
+}
