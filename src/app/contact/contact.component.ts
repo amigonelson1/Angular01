@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 interface ContactForm {
   "name": string;
   "checkAdult": boolean;
@@ -21,7 +22,7 @@ export class ContactComponent {
     comment: ''
   }
 
-  onSubmit(form: any): void {
+  onSubmit(form: NgForm): void {
     console.log('Submit in form with dates: ', form)
   }
 
