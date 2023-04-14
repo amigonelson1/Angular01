@@ -15,7 +15,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UserComponent } from './users/user/user.component';
 import { DetailsComponent } from './users/details/details.component';
 import { ListComponent } from './users/list/list.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +33,20 @@ import {HttpClientModule} from '@angular/common/http';
     PagenotfoundComponent,
     UserComponent,
     DetailsComponent,
-    ListComponent
+    ListComponent,
+    SpinnerComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
     //Estos importes han sido para ser reconocidos dentro de la app
-    FormsModule,
-    AppRoutingModule,
+    FormsModule, // para los modulos de formularios
+    AppRoutingModule, // para modulos de ruteo
     HttpClientModule, //Modulo para conexiones, peticiones
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

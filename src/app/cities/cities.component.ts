@@ -8,7 +8,9 @@ import { City } from '../services/data.service';
       <li class="list-group-item mt-1" (click)="onCitySelected(city)"
         [ngClass]="{'active': city._id === selection?._id}">
         {{city.name | titlecase}}
-          <button class="btn btn-danger float-end" type="button"
+          <button 
+          *ngIf= "city?._id === selection?._id"
+          class="btn btn-danger float-end" type="button"
           (click)="onCityDelete(city._id)">
             Delete
           </button>
@@ -20,7 +22,7 @@ import { City } from '../services/data.service';
 })
 export class CitiesComponent {
   @Input() city!: City;
-  @Input() selection!: City;
+  @Input() selection?: City;
 
   /* cada @output debe crear una nueva instancia de EventEmitter y ser importada de 
   @angular/core e ir asociado dentro de la funcion con .emit para poder ser enviada la info */

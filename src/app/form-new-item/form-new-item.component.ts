@@ -11,17 +11,22 @@ export class FormNewItemComponent {
 
   @Input() className = 'btn-primary';
   @Input() label!: string;
-  @Input() selection!: City;
+  @Input() selection?: City;
+  
 
   @Output() newItemEvent = new EventEmitter<string>();
+  @Output() updateItemEvent = new EventEmitter<City>();
 
   onAddNewItem(item: string): void {
     this.newItemEvent.emit(item);
   }
 
-  counterRender(): boolean{
-    //console.log('Render form');
-    return true;
+  onUpdateItem(item: City, change: string): void {
+    const city: City = {
+      _id: item._id,
+      name: change,
+    }
+    this.updateItemEvent.emit(city);
   }
 
 }

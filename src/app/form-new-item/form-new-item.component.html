@@ -9,11 +9,14 @@
     <input type="text" id="newItem" class="form-control" name="newItem" [ngModel]="selection?.name" #newItem>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn" [ngClass]="[className]"
+            <button *ngIf="!selection?.name" type="button" class="btn" [ngClass]="[className]"
                 (click)="onAddNewItem(newItem.value); newItem.value= ''">
                 Add{{label}}
+            </button>
+            <button *ngIf="selection?.name" type="button" class="btn" [ngClass]="[className]"
+                (click)="onUpdateItem(selection!, newItem.value); newItem.value= ''">
+                Update{{label}}
             </button>
         </div>
     </div>
 </form>
-<p>Count: {{counterRender()}}</p>

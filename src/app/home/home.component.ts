@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { City, DataService } from '../services/data.service';
+import { CitiesComponent } from '../cities/cities.component';
 
 @Component({
   selector: 'app-home',
@@ -31,12 +32,25 @@ export class HomeComponent {
   }
 
   onCitySelected(city: City): void {
-    //console.log('Select ->', city)
     this.selection = city;
   }
 
   onCityDelete(id: string): void {
-    console.log('Click in button delete with id: ', id)
+    if (confirm('Are you sure?')) {
+      this.dataSVc.deleteCity(id).subscribe(() => {
+        const tempArr = this.cities.filter(city => city._id !== id);
+        this.cities = [...tempArr];
+        this.onClear();
+      })
+    }
+  }
+
+  onUpdateCity(city: City): void {
+    this.dataSVc.updateCity(city).subscribe(() => {
+      const tempArr = this.cities.filter(item => item._id !== city._id);
+      this.cities = [...tempArr, city];
+      this.onClear();
+    })
   }
 
   onClear(): void {

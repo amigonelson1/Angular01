@@ -18,7 +18,6 @@ export class DataService {
 
   addNewCity(city: string): Observable<City> {
     const body = { name: city };
-    console.log(this.API, body)
     return this.http.post<City>(this.API, body);
   }
   getCities(): Observable<City[]> {
