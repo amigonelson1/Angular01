@@ -2,7 +2,7 @@
     {{departments}}
 </pre> -->
 
-<h1>Contact Reactive</h1>
+<h1>Contact Reactive  {{(selectedCity$ | async)?.name}}</h1>
 <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
     <div class="mb-4">
         <label for="name" class="form-label">Name</label>

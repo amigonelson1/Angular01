@@ -10,11 +10,11 @@
         </div>
         <div class="col-auto">
             <button *ngIf="!selection?.name" type="button" class="btn" [ngClass]="[className]"
-                (click)="onAddNewItem(newItem.value); newItem.value= ''">
+                (click)="onAddNewItem()">
                 Add{{label}}
             </button>
             <button *ngIf="selection?.name" type="button" class="btn" [ngClass]="[className]"
-                (click)="onUpdateItem(selection!, newItem.value); newItem.value= ''">
+                (click)="onUpdateItem(); newItem.value= ''">
                 Update{{label}}
             </button>
         </div>

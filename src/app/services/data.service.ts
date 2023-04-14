@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface City {
   _id: string;
   name: string;
+}
+
+//para compartir informacion entre componentes
+const initCity: City = {
+  _id:'',
+  name: '',
 }
 
 @Injectable({
@@ -12,16 +18,28 @@ export interface City {
 })
 export class DataService {
 
-  private readonly API = 'https://crudcrud.com/api/847c82071bba4d46ae19b2c8f8227292/cities';
+//las variables observables por convencion deben terminar en $;
+  private city$ = new BehaviorSubject<City>(initCity);
+
+  private readonly API = 'https://crudcrud.com/api/d3efd8ffcd4b4ca398efe584aca37dca/cities';
 
   constructor(private readonly http: HttpClient) { }
+
+  get selectedCity$():Observable<City>{
+    return this.city$.asObservable();
+  }
+
+  setCity(city: City): void{
+    this.city$.next(city);
+  }
 
   addNewCity(city: string): Observable<City> {
     const body = { name: city };
     return this.http.post<City>(this.API, body);
   }
   getCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.API)
+    return this.http.get<City[]>(this.API);
+    
   }
 
   updateCity(city: City): Observable<void> {

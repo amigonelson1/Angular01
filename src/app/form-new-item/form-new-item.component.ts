@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { City } from '../services/data.service';
 
 @Component({
@@ -12,21 +12,31 @@ export class FormNewItemComponent {
   @Input() className = 'btn-primary';
   @Input() label!: string;
   @Input() selection?: City;
-  
+  @ViewChild('newItem') newItem!: ElementRef;
 
   @Output() newItemEvent = new EventEmitter<string>();
   @Output() updateItemEvent = new EventEmitter<City>();
 
-  onAddNewItem(item: string): void {
-    this.newItemEvent.emit(item);
+  ngAfterViewInit(): void {
+    this.newItem.nativeElement.focus();
   }
 
-  onUpdateItem(item: City, change: string): void {
+  onAddNewItem(): void {
+    this.newItemEvent.emit(this.newItem.nativeElement.value); //para pasar el valor 'newItem' debe darsele el valor: ElementRef;
+    this.onClear();
+  }
+
+  onUpdateItem(): void {
     const city: City = {
-      _id: item._id,
-      name: change,
+      _id: this.selection!._id,
+      name: this.newItem.nativeElement.value,
     }
     this.updateItemEvent.emit(city);
+    this.onClear();
+  }
+
+  private onClear(): void {
+    this.newItem.nativeElement.value = '';
   }
 
 }

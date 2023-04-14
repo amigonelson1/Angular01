@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 interface ContactForm {
@@ -15,6 +15,7 @@ interface ContactForm {
 })
 
 export class ContactComponent {
+  @ViewChild('contactForm') contactForm!: NgForm;
   id!: string;
 
   constructor(private readonly route: ActivatedRoute) { }
@@ -32,8 +33,9 @@ export class ContactComponent {
     comment: ''
   }
 
-  onSubmit(form: NgForm): void {
-    console.log('Submit in form with dates: ', form)
+  onSubmit(): void {
+    this.contactForm
+    console.log('Submit in form with dates: ', this.contactForm.form.value)
   }
 
 }
