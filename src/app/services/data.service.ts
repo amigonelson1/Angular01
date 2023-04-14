@@ -20,7 +20,7 @@ export class DataService {
 
 //las variables observables por convencion deben terminar en $;
   private city$ = new BehaviorSubject<City>(initCity);
-
+// para obtener una nueva url de pruebas nos dirigimos a: 'https://crudcrud.com'
   private readonly API = 'https://crudcrud.com/api/d3efd8ffcd4b4ca398efe584aca37dca/cities';
 
   constructor(private readonly http: HttpClient) { }
