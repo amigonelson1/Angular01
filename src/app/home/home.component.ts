@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { City, DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,27 +8,42 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent {
-  cities = ['Madrid', 'Paris', 'Lima', 'Barcelona']
-  name!: string;
+  cities: City[] = [];
   title = 'reto01';
-  selection!: string;
+  selection!: City;
   criteria = '';
 
-  ngOnInit(): void {
-    //console.log('OnInit ->');
+  constructor(private readonly dataSVc: DataService) {
+
   }
 
-  onCityClicked(city: string): void {
+  ngOnInit(): void {
+    this.dataSVc.getCities().subscribe(res => {
+      this.cities = [...res];
+      console.log(res, this.selection)
+    })
+  }
+
+  addNewCity(city: string): void {
+    this.dataSVc.addNewCity(city).subscribe(res => {
+      this.cities.push(res)
+    })
+  }
+
+  onCitySelected(city: City): void {
     //console.log('Select ->', city)
     this.selection = city;
   }
 
-  onClearSelection(): void {
-    this.selection = '';
+  onCityDelete(id: string): void {
+    console.log('Click in button delete with id: ', id)
   }
 
-  addNewCity(city: string): void {
-    this.cities.push(city);
+  onClear(): void {
+    this.selection = {
+      _id: '',
+      name: ''
+    };
   }
 
 }

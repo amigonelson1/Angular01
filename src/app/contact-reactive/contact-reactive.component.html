@@ -1,3 +1,7 @@
+<!-- <pre>
+    {{departments}}
+</pre> -->
+
 <h1>Contact Reactive</h1>
 <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
     <div class="mb-4">
@@ -19,9 +23,7 @@
         <select name="department" id="department" class="form-select form-select-sm" name="department" required
             formControlName="department">
             <option selected>Open this select menu</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
-            <option value="others">Others</option>
+            <option *ngFor="let department of departments" [value]="department">{{department}}</option>
         </select>
         <!--  <div [hidden]="department.valid || department.pristine" class="alert alert-danger">This field is required.</div> -->
     </div>

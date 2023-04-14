@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-contact-reactive',
@@ -11,8 +12,11 @@ export class ContactReactiveComponent {
 
   contactForm!: FormGroup;
   //myField = new FormControl();
+  name!: string;
+  departments: string[] = [];
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute) {
 
   }
 
@@ -29,6 +33,13 @@ export class ContactReactiveComponent {
   }
 
   ngOnInit(): void {
+    /* para el siguiente llamado ['datos'] vienen del app.routing.module */
+    this.departments = this.route.snapshot.data['departments']
+    this.route.queryParams.subscribe(
+      (params: Params) => {
+        this.name = params['name']
+      }
+    )
     this.contactForm = this.initForm();
     this.onPathValue();
     //this.onSetValue();

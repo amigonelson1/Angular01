@@ -10,11 +10,26 @@
                 <li class="nav-item">
                     <a class="nav-link " routerLinkActive="active" routerLink="/home">Home</a>
                 </li>
-                <li class="nav-item">
+
+                <!-- A continucion se presentan dos maneras de naveagr entre componentes -->
+                <!-- <li class="nav-item">
                     <a class="nav-link" routerLinkActive="active" routerLink="/contact-reactive">Reactive</a>
+                </li> -->
+
+                <!-- Otra forma -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" (click)="goToReactive()">Reactive</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/contact-template">Template</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" (click)="goToTemplate()">Template</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" routerLink="/contact-template">Template</a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/users">Users</a>
                 </li>
             </ul>
         </div>

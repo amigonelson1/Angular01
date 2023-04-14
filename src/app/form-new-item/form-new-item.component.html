@@ -6,10 +6,11 @@
             </label>
         </div>
         <div class="col-auto">
-            <input type="text" id="newItem" class="form-control" #newItem>
+    <input type="text" id="newItem" class="form-control" name="newItem" [ngModel]="selection?.name" #newItem>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn" [ngClass]="[className]" (click)="onAddNewItem(newItem.value)">
+            <button type="button" class="btn" [ngClass]="[className]"
+                (click)="onAddNewItem(newItem.value); newItem.value= ''">
                 Add{{label}}
             </button>
         </div>

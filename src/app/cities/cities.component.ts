@@ -1,32 +1,39 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { City } from '../services/data.service';
 
 @Component({
   selector: 'app-cities',
   template: `
-    <ul>
-      <li (click)="onCityClicked(city)"
-        [ngClass]="{'alert alert-info': city === selection}">
-        {{city | titlecase}}
+    <ul class="list-group">
+      <li class="list-group-item mt-1" (click)="onCitySelected(city)"
+        [ngClass]="{'active': city._id === selection?._id}">
+        {{city.name | titlecase}}
+          <button class="btn btn-danger float-end" type="button"
+          (click)="onCityDelete(city._id)">
+            Delete
+          </button>
       </li>
-    </ul>
-    <p>Count: {{counterRender()}}</p>
+    </ul>    
       `,
   styleUrls: ['./cities.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CitiesComponent {
-  @Input() city!: string;
-  @Input() selection!: string;
-  @Output() cityClickedEvent = new EventEmitter<string>
+  @Input() city!: City;
+  @Input() selection!: City;
 
-  onCityClicked(city: string): void {
+  /* cada @output debe crear una nueva instancia de EventEmitter y ser importada de 
+  @angular/core e ir asociado dentro de la funcion con .emit para poder ser enviada la info */
+  @Output() citySelectedEvent = new EventEmitter<City>
+  @Output() cityDeleteEvent = new EventEmitter<string>
+
+  onCitySelected(city: City): void {
     //emit
-    this.cityClickedEvent.emit(city);
+    this.citySelectedEvent.emit(city);
   }
 
-  counterRender(): boolean {
-    //console.log('Render cities');
-    return true;
+  onCityDelete(id: string): void {
+    this.cityDeleteEvent.emit(id);
   }
 
 }
